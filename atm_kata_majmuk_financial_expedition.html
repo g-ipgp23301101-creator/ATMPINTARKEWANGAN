@@ -1,0 +1,2018 @@
+<!DOCTYPE html>
+<html lang="ms">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title>ATM KATA MAJMUK: FINANCIAL EXPEDITION</title>
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Google Fonts: Orbitron & Plus Jakarta Sans -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600;700;800;900&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --neon-purple: #b026ff;
+      --electric-blue: #0066ff;
+      --neon-cyan: #00f3ff;
+      --neon-pink: #ff007f;
+      --neon-gold: #ffd700;
+      --neon-green: #00ff88;
+      --neon-red: #ff1e56;
+    }
+
+    * {
+      box-sizing: border-box;
+      -webkit-tap-highlight-color: transparent;
+      user-select: none;
+      -webkit-user-select: none;
+    }
+
+    html, body {
+      margin: 0;
+      padding: 0;
+      width: 100%;
+      height: 100%;
+      overflow-x: hidden;
+      background-color: #050214;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      color: #ffffff;
+    }
+
+    .font-cyber {
+      font-family: 'Orbitron', sans-serif;
+    }
+
+    /* Cyber Grid Background */
+    .cyber-bg {
+      background:
+        radial-gradient(circle at 50% 15%, rgba(176, 38, 255, 0.25) 0%, transparent 55%),
+        radial-gradient(circle at 85% 80%, rgba(0, 243, 255, 0.2) 0%, transparent 50%),
+        radial-gradient(circle at 15% 80%, rgba(255, 0, 127, 0.18) 0%, transparent 50%),
+        linear-gradient(180deg, #050214 0%, #090426 60%, #0d0535 100%);
+    }
+
+    .cyber-grid-floor {
+      position: fixed;
+      bottom: 0;
+      left: -50%;
+      width: 200%;
+      height: 45vh;
+      background-image:
+        linear-gradient(to right, rgba(0, 243, 255, 0.18) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(176, 38, 255, 0.22) 1px, transparent 1px);
+      background-size: 50px 50px;
+      transform: perspective(450px) rotateX(68deg);
+      transform-origin: center bottom;
+      animation: gridMove 8s linear infinite;
+      pointer-events: none;
+      z-index: 1;
+      mask-image: linear-gradient(to top, rgba(0,0,0,0.85) 10%, transparent 95%);
+      -webkit-mask-image: linear-gradient(to top, rgba(0,0,0,0.85) 10%, transparent 95%);
+    }
+
+    @keyframes gridMove {
+      0% { background-position: 0 0; }
+      100% { background-position: 0 50px; }
+    }
+
+    /* Neon Text & Box Glows */
+    .glow-cyan {
+      text-shadow: 0 0 10px rgba(0, 243, 255, 0.8), 0 0 22px rgba(0, 243, 255, 0.5);
+    }
+    .glow-gold {
+      text-shadow: 0 0 10px rgba(255, 215, 0, 0.85), 0 0 25px rgba(255, 215, 0, 0.55);
+    }
+    .glow-pink {
+      text-shadow: 0 0 10px rgba(255, 0, 127, 0.85), 0 0 25px rgba(255, 0, 127, 0.55);
+    }
+    .glow-green {
+      text-shadow: 0 0 12px rgba(0, 255, 136, 0.9), 0 0 28px rgba(0, 255, 136, 0.6);
+    }
+    .glow-red {
+      text-shadow: 0 0 12px rgba(255, 30, 86, 0.9), 0 0 28px rgba(255, 30, 86, 0.6);
+    }
+
+    .box-neon-cyan {
+      border: 2px solid #00f3ff;
+      box-shadow: 0 0 18px rgba(0, 243, 255, 0.35), inset 0 0 15px rgba(0, 243, 255, 0.15);
+    }
+    .box-neon-purple {
+      border: 2px solid #b026ff;
+      box-shadow: 0 0 20px rgba(176, 38, 255, 0.4), inset 0 0 18px rgba(176, 38, 255, 0.2);
+    }
+    .box-neon-gold {
+      border: 2px solid #ffd700;
+      box-shadow: 0 0 22px rgba(255, 215, 0, 0.45), inset 0 0 16px rgba(255, 215, 0, 0.2);
+    }
+    .box-neon-green {
+      border: 2px solid #00ff88 !important;
+      box-shadow: 0 0 30px rgba(0, 255, 136, 0.65), inset 0 0 25px rgba(0, 255, 136, 0.3) !important;
+    }
+    .box-neon-red {
+      border: 2px solid #ff1e56 !important;
+      box-shadow: 0 0 30px rgba(255, 30, 86, 0.65), inset 0 0 25px rgba(255, 30, 86, 0.3) !important;
+    }
+
+    /* Hologram Scanlines */
+    .hologram-panel {
+      position: relative;
+      background: linear-gradient(135deg, rgba(10, 22, 65, 0.85) 0%, rgba(24, 8, 66, 0.88) 100%);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      overflow: hidden;
+    }
+    .hologram-panel::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: repeating-linear-gradient(
+        0deg,
+        transparent,
+        transparent 3px,
+        rgba(0, 243, 255, 0.04) 4px
+      );
+      pointer-events: none;
+    }
+
+    /* Hologram Transition Animation */
+    @keyframes holoAppear {
+      0% {
+        opacity: 0;
+        transform: scale(0.92) translateY(14px);
+        filter: brightness(2) hue-rotate(45deg);
+      }
+      60% {
+        opacity: 1;
+        transform: scale(1.01) translateY(-2px);
+        filter: brightness(1.25);
+      }
+      100% {
+        opacity: 1;
+        transform: scale(1) translateY(0);
+        filter: brightness(1);
+      }
+    }
+    .animate-holo {
+      animation: holoAppear 0.55s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    }
+
+    /* Arcade Touch Buttons */
+    .btn-arcade {
+      position: relative;
+      transition: all 0.18s cubic-bezier(0.34, 1.56, 0.64, 1);
+      cursor: pointer;
+      touch-action: manipulation;
+    }
+    .btn-arcade:active:not(:disabled) {
+      transform: scale(0.94) translateY(2px);
+    }
+    .btn-arcade:disabled {
+      opacity: 0.45;
+      cursor: not-allowed;
+      filter: grayscale(0.5);
+    }
+
+    /* Floating Animation */
+    @keyframes floatSlow {
+      0%, 100% { transform: translateY(0px) rotate(0deg); }
+      50% { transform: translateY(-10px) rotate(2deg); }
+    }
+    .animate-float {
+      animation: floatSlow 3.8s ease-in-out infinite;
+    }
+
+    /* ATM Card Slot LED Pulse */
+    @keyframes slotPulse {
+      0%, 100% { box-shadow: 0 0 12px #00f3ff, 0 0 25px #00f3ff, inset 0 0 10px #00f3ff; border-color: #00f3ff; }
+      50% { box-shadow: 0 0 22px #ffd700, 0 0 40px #ff007f, inset 0 0 15px #ffd700; border-color: #ffd700; }
+    }
+    .atm-slot-active {
+      animation: slotPulse 1.4s infinite ease-in-out;
+    }
+
+    /* Card Insertion Animation into ATM Slot */
+    @keyframes insertCardAnim {
+      0% {
+        transform: translateY(90px) scale(1) rotateX(0deg);
+        opacity: 1;
+      }
+      45% {
+        transform: translateY(15px) scale(0.92) rotateX(25deg);
+        opacity: 1;
+      }
+      85% {
+        transform: translateY(-28px) scale(0.75) rotateX(45deg);
+        opacity: 0.7;
+      }
+      100% {
+        transform: translateY(-48px) scale(0.6) rotateX(55deg);
+        opacity: 0;
+      }
+    }
+    .card-inserting {
+      animation: insertCardAnim 0.95s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+    }
+
+    /* Card Eject Animation on Wrong Answer */
+    @keyframes ejectCardAnim {
+      0% {
+        transform: translateY(-45px) scale(0.65);
+        opacity: 0;
+      }
+      50% {
+        transform: translateY(15px) scale(0.95);
+        opacity: 1;
+      }
+      100% {
+        transform: translateY(70px) scale(1);
+        opacity: 0;
+      }
+    }
+    .card-ejecting {
+      animation: ejectCardAnim 0.75s ease-out forwards;
+    }
+
+    /* Cash Dispensing Animation */
+    @keyframes dispenseBill {
+      0% {
+        transform: translateY(-30px) scale(0.6) rotate(0deg);
+        opacity: 0;
+      }
+      30% {
+        opacity: 1;
+      }
+      100% {
+        transform: translate(var(--tx, 0px), var(--ty, 95px)) scale(1.05) rotate(var(--rot, 12deg));
+        opacity: 0;
+      }
+    }
+    .cash-particle {
+      animation: dispenseBill 1.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    }
+
+    /* Answer Card Styling */
+    .atm-answer-card {
+      background: linear-gradient(135deg, rgba(20, 30, 85, 0.92) 0%, rgba(45, 12, 95, 0.92) 100%);
+      border: 2px solid rgba(0, 243, 255, 0.65);
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.6), 0 0 16px rgba(0, 243, 255, 0.25);
+      transition: all 0.22s cubic-bezier(0.34, 1.56, 0.64, 1);
+      position: relative;
+      overflow: hidden;
+    }
+    .atm-answer-card::before {
+      content: "";
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: linear-gradient(45deg, transparent 40%, rgba(255, 255, 255, 0.12) 50%, transparent 60%);
+      transform: rotate(25deg);
+      transition: transform 0.5s;
+      pointer-events: none;
+    }
+    .atm-answer-card:hover::before, .atm-answer-card:active::before {
+      transform: rotate(25deg) translate(25%, 25%);
+    }
+    .atm-answer-card:active:not(:disabled) {
+      transform: translateY(-6px) scale(0.98);
+      border-color: #ffd700;
+      box-shadow: 0 0 28px rgba(255, 215, 0, 0.7);
+    }
+
+    /* Screen Shake for Wrong Answer */
+    @keyframes shakeError {
+      0%, 100% { transform: translateX(0); }
+      20%, 60% { transform: translateX(-8px); }
+      40%, 80% { transform: translateX(8px); }
+    }
+    .animate-shake {
+      animation: shakeError 0.45s ease-in-out;
+    }
+
+    /* Custom Range Slider */
+    input[type=range].cyber-slider {
+      -webkit-appearance: none;
+      appearance: none;
+      background: rgba(0, 243, 255, 0.25);
+      height: 6px;
+      border-radius: 999px;
+      outline: none;
+    }
+    input[type=range].cyber-slider::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      appearance: none;
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+      background: #00f3ff;
+      box-shadow: 0 0 10px #00f3ff;
+      cursor: pointer;
+    }
+  </style>
+</head>
+
+<body class="cyber-bg min-h-screen flex flex-col justify-between relative select-none overflow-x-hidden">
+
+  <!-- Background Animated Particles (Floating RM Banknotes, Gold Coins & Sparkles) -->
+  <canvas id="bgParticleCanvas" class="fixed inset-0 pointer-events-none z-0"></canvas>
+  <div class="cyber-grid-floor"></div>
+
+  <!-- ========================================================================= -->
+  <!-- PERSISTENT TOP HUD BAR (Progress, Cash Balance, Audio Controls, End Game) -->
+  <!-- ========================================================================= -->
+  <header class="relative z-30 w-full px-3 py-2 md:px-6 md:py-3 bg-[#080421]/85 backdrop-blur-md border-b border-cyan-500/40 shadow-[0_4px_25px_rgba(0,243,255,0.2)]">
+    <div class="max-w-7xl mx-auto flex flex-wrap items-center justify-between gap-2 md:gap-4">
+
+      <!-- Left: Brand Badge & Progress Bar -->
+      <div class="flex items-center gap-3 md:gap-5 flex-1 min-w-[260px]">
+        <div class="flex items-center gap-2 bg-purple-950/80 border border-purple-400/60 px-3 py-1.5 rounded-xl shadow-[0_0_12px_rgba(176,38,255,0.4)]">
+          <span class="text-xl md:text-2xl">🏧</span>
+          <div class="leading-tight">
+            <div class="font-cyber text-xs md:text-sm font-bold text-cyan-300 tracking-wider">ATM KATA MAJMUK</div>
+            <div class="text-[10px] text-pink-400 font-semibold tracking-widest">PASPORT KEWANGAN</div>
+          </div>
+        </div>
+
+        <!-- Progress Indicator: SOALAN SELESAI: X/10 -->
+        <div class="flex-1 max-w-xs">
+          <div class="flex justify-between items-center mb-1">
+            <span id="hudProgressText" class="font-cyber text-xs md:text-sm font-bold text-cyan-300 glow-cyan">
+              SOALAN SELESAI: 0/10
+            </span>
+            <span id="hudRewardText" class="font-cyber text-xs md:text-sm font-extrabold text-yellow-400 glow-gold">
+              RM 0
+            </span>
+          </div>
+          <div class="w-full h-3 bg-slate-900/90 rounded-full overflow-hidden border border-cyan-400/50 p-0.5 shadow-[inset_0_0_8px_rgba(0,0,0,0.8)]">
+            <div id="hudProgressBar" class="h-full rounded-full bg-gradient-to-r from-purple-500 via-cyan-400 to-emerald-400 transition-all duration-500 shadow-[0_0_12px_#00f3ff]" style="width: 0%"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right: Audio Controls & TAMATKAN PERMAINAN Button -->
+      <div class="flex items-center gap-2 md:gap-3">
+        <!-- Audio Toggle + Volume Slider -->
+        <div class="flex items-center gap-2 bg-slate-900/85 border border-cyan-500/40 px-2.5 py-1.5 rounded-xl">
+          <button id="btnAudioToggle" onclick="toggleAudio()" class="btn-arcade flex items-center gap-1.5 text-xs md:text-sm font-bold text-cyan-300 hover:text-white px-1.5 py-0.5 rounded-lg" title="On/Off Audio">
+            <span id="audioIcon" class="text-base md:text-lg">🔊</span>
+            <span id="audioLabel" class="hidden sm:inline font-cyber text-[11px]">AUDIO ON</span>
+          </button>
+          <input id="volumeSlider" type="range" min="0" max="100" value="75" oninput="changeVolume(this.value)" class="cyber-slider w-16 md:w-20" aria-label="Kawalan Kelantangan" />
+        </div>
+
+        <!-- Always Visible TAMATKAN PERMAINAN Button -->
+        <button onclick="openEndGameModal()" class="btn-arcade bg-gradient-to-r from-rose-600 via-pink-600 to-red-600 hover:from-rose-500 hover:to-red-500 text-white font-cyber text-xs md:text-sm font-bold px-3.5 py-2 md:px-4 md:py-2.5 rounded-xl border-2 border-pink-300/80 shadow-[0_0_16px_rgba(255,0,127,0.6)] flex items-center gap-1.5">
+          <span>⏹️</span>
+          <span>TAMATKAN PERMAINAN</span>
+        </button>
+      </div>
+
+    </div>
+  </header>
+
+  <!-- ========================================================================= -->
+  <!-- MAIN CONTENT STAGE (Switches between Home, Wheel, ATM Question, Result)   -->
+  <!-- ========================================================================= -->
+  <main class="relative z-20 flex-1 flex flex-col items-center justify-center w-full max-w-7xl mx-auto px-3 py-2 md:px-6 md:py-4">
+
+    <!-- ======================================================================= -->
+    <!-- SCREEN 1: PAPARAN UTAMA (START SCREEN)                                  -->
+    <!-- ======================================================================= -->
+    <section id="screenHome" class="w-full flex flex-col lg:flex-row items-center justify-center gap-6 lg:gap-10 py-2 animate-holo">
+      
+      <!-- Left Column: Title, Subtitle, Mission Brief & Start Buttons -->
+      <div class="flex-1 flex flex-col items-center lg:items-start text-center lg:text-left max-w-xl">
+        <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-purple-900/70 border border-pink-400/70 text-pink-300 font-cyber text-xs md:text-sm font-bold mb-3 shadow-[0_0_15px_rgba(255,0,127,0.4)]">
+          <span>✨ PASPORT KATA MAJMUK</span>
+          <span>•</span>
+          <span>EDISI IPAD INTERAKTIF</span>
+        </div>
+
+        <h1 class="font-cyber text-4xl sm:text-5xl md:text-6xl font-black tracking-tight leading-none mb-2">
+          <span class="bg-clip-text text-transparent bg-gradient-to-r from-cyan-300 via-white to-purple-300 glow-cyan">
+            ATM KATA MAJMUK
+          </span>
+        </h1>
+
+        <h2 class="font-cyber text-xl sm:text-2xl md:text-3xl font-extrabold text-yellow-400 glow-gold tracking-widest mb-4">
+          FINANCIAL EXPEDITION
+        </h2>
+
+        <p class="text-slate-200 text-sm sm:text-base md:text-lg leading-relaxed mb-6 bg-slate-900/75 border border-cyan-500/30 p-4 rounded-2xl shadow-lg">
+          Selamat datang ke <strong class="text-cyan-300">Ekspedisi Kewangan Futuristik!</strong> Putar roda soalan menggunakan <strong class="text-yellow-300">Gerak Tangan (MediaPipe)</strong> atau sentuhan skrin, dan masukkan <strong class="text-pink-400">Kad ATM Jawapan</strong> untuk mengeluarkan ganjaran wang tunai RM!
+        </p>
+
+        <!-- Gesture Quick Guide Cards -->
+        <div class="grid grid-cols-2 gap-3 w-full mb-6">
+          <div class="hologram-panel border border-cyan-400/50 rounded-xl p-3 flex items-center gap-3">
+            <div class="text-3xl bg-cyan-500/20 p-2 rounded-xl border border-cyan-400/40">🤏</div>
+            <div class="text-left">
+              <div class="font-cyber text-xs font-bold text-cyan-300">CUBIT (PINCH)</div>
+              <div class="text-xs text-slate-300">Cantum ibu jari & telunjuk untuk <strong class="text-white">Putar Roda</strong></div>
+            </div>
+          </div>
+          <div class="hologram-panel border border-pink-400/50 rounded-xl p-3 flex items-center gap-3">
+            <div class="text-3xl bg-pink-500/20 p-2 rounded-xl border border-pink-400/40">✋</div>
+            <div class="text-left">
+              <div class="font-cyber text-xs font-bold text-pink-300">TAPAK TANGAN</div>
+              <div class="text-xs text-slate-300">Buka tapak tangan untuk <strong class="text-white">Berhenti</strong></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Primary Action Buttons -->
+        <div class="flex flex-wrap items-center justify-center lg:justify-start gap-4 w-full">
+          <button onclick="startGame()" class="btn-arcade flex-1 sm:flex-initial min-w-[230px] bg-gradient-to-r from-cyan-400 via-blue-600 to-purple-600 hover:from-cyan-300 hover:to-purple-500 text-white font-cyber text-lg md:text-xl font-black px-8 py-4 rounded-2xl border-2 border-cyan-200 shadow-[0_0_30px_rgba(0,243,255,0.75)] flex items-center justify-center gap-3">
+            <span>🚀</span>
+            <span>MULA PERMAINAN</span>
+          </button>
+
+          <button onclick="openEndGameModal()" class="btn-arcade bg-slate-900/90 hover:bg-rose-950 text-pink-300 font-cyber text-sm md:text-base font-bold px-6 py-4 rounded-2xl border-2 border-pink-500/70 shadow-[0_0_18px_rgba(255,0,127,0.35)] flex items-center justify-center gap-2">
+            <span>🛑</span>
+            <span>TAMATKAN PERMAINAN</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Right Column: Futuristic Glowing ATM Centerpiece with Floating RM Notes & Coins -->
+      <div class="relative flex items-center justify-center w-full max-w-md lg:max-w-lg py-4">
+        <!-- Floating RM Banknotes & Gold Coins Badges around ATM -->
+        <div class="animate-float absolute -top-3 -left-2 z-20 bg-gradient-to-r from-purple-700 to-indigo-900 border-2 border-cyan-300 rounded-xl px-3.5 py-2 shadow-[0_0_20px_rgba(0,243,255,0.6)] rotate-[-10deg]">
+          <div class="font-cyber text-xs text-cyan-200 font-bold">BANK NEGARA SIBER</div>
+          <div class="font-cyber text-lg font-black text-white">RM 100</div>
+        </div>
+
+        <div class="animate-float absolute top-8 -right-3 z-20 bg-gradient-to-r from-teal-700 to-cyan-900 border-2 border-yellow-300 rounded-xl px-3.5 py-2 shadow-[0_0_20px_rgba(255,215,0,0.6)] rotate-[12deg]" style="animation-delay: 0.9s;">
+          <div class="font-cyber text-xs text-yellow-200 font-bold">GANJARAN TUNAI</div>
+          <div class="font-cyber text-lg font-black text-white">RM 50</div>
+        </div>
+
+        <div class="animate-float absolute -bottom-2 left-4 z-20 w-14 h-14 rounded-full bg-gradient-to-br from-yellow-300 via-amber-500 to-yellow-700 border-2 border-white shadow-[0_0_25px_#ffd700] flex items-center justify-center font-cyber font-black text-slate-950 text-lg" style="animation-delay: 1.5s;">
+          RM
+        </div>
+
+        <!-- Centerpiece Futuristic ATM Machine Card -->
+        <div class="w-full max-w-sm hologram-panel box-neon-cyan rounded-3xl p-5 relative shadow-[0_0_50px_rgba(0,243,255,0.3)]">
+          <!-- ATM Top Marquee -->
+          <div class="bg-gradient-to-r from-purple-900 via-indigo-900 to-blue-900 border-2 border-cyan-400 rounded-2xl p-3 text-center mb-4 shadow-[0_0_20px_rgba(0,243,255,0.4)]">
+            <div class="font-cyber text-xs text-cyan-300 tracking-widest">TERMINAL HOLOGRAM</div>
+            <div class="font-cyber text-xl font-black text-yellow-300 glow-gold">CYBER ATM 3000</div>
+          </div>
+
+          <!-- ATM Hologram Screen -->
+          <div class="bg-slate-950/90 border-2 border-cyan-400/80 rounded-2xl p-4 mb-4 text-center relative overflow-hidden shadow-[inset_0_0_25px_rgba(0,243,255,0.3)]">
+            <div class="text-xs font-cyber text-cyan-400 mb-1">STATUS SISTEM: AKTIF</div>
+            <div class="font-cyber text-lg font-extrabold text-white mb-2">10 MISI KATA MAJMUK</div>
+            <div class="flex justify-center gap-2 my-2">
+              <span class="px-3 py-1 rounded-lg bg-cyan-500/20 border border-cyan-400 text-cyan-300 font-cyber text-xs font-bold">KAD A</span>
+              <span class="px-3 py-1 rounded-lg bg-purple-500/20 border border-purple-400 text-purple-300 font-cyber text-xs font-bold">KAD B</span>
+              <span class="px-3 py-1 rounded-lg bg-pink-500/20 border border-pink-400 text-pink-300 font-cyber text-xs font-bold">KAD C</span>
+            </div>
+            <div class="text-[11px] text-emerald-300 font-semibold">Masukkan kad jawapan untuk tebus RM1,000 setiap soalan!</div>
+          </div>
+
+          <!-- ATM Card Slot & Cash Dispenser Illustration -->
+          <div class="flex items-center justify-between gap-3 bg-slate-900/90 p-3 rounded-2xl border border-purple-500/40">
+            <div class="flex-1">
+              <div class="text-[10px] font-cyber text-slate-400 mb-1">RUANG KELUAR WANG</div>
+              <div class="h-5 bg-slate-950 rounded-lg border-2 border-yellow-400/70 shadow-[0_0_10px_rgba(255,215,0,0.4)] flex items-center justify-center">
+                <div class="w-4/5 h-1.5 bg-yellow-400/60 rounded-full"></div>
+              </div>
+            </div>
+            <div class="w-28 text-center">
+              <div class="text-[10px] font-cyber text-cyan-300 mb-1">SLOT KAD ATM</div>
+              <div class="h-5 bg-slate-950 rounded-lg border-2 border-cyan-400 atm-slot-active flex items-center justify-center">
+                <div class="w-16 h-1.5 bg-cyan-300 rounded-full"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ======================================================================= -->
+    <!-- SCREEN 2: RODA PUTAR SOALAN & MEDIAPIPE HAND GESTURE                    -->
+    <!-- ======================================================================= -->
+    <section id="screenWheel" class="hidden w-full flex-col lg:flex-row items-center justify-center gap-6 lg:gap-10 py-1 animate-holo">
+      
+      <!-- Left / Center: Neon Spinning Wheel -->
+      <div class="flex flex-col items-center justify-center relative">
+        <div class="mb-2 text-center">
+          <span class="px-4 py-1 rounded-full bg-purple-900/80 border border-cyan-400/60 font-cyber text-xs md:text-sm font-bold text-cyan-300 shadow-[0_0_12px_rgba(0,243,255,0.3)]">
+            FASA 1: RODA PUTAR SOALAN
+          </span>
+          <h2 class="font-cyber text-2xl md:text-3xl font-black text-white mt-1 glow-cyan">
+            PUTAR UNTUK PILIH SOALAN
+          </h2>
+        </div>
+
+        <!-- Wheel Container with Top Pointer -->
+        <div class="relative flex items-center justify-center my-1">
+          <!-- Neon Pointer Arrow at Top -->
+          <div class="absolute -top-5 z-30 drop-shadow-[0_0_15px_#ffd700]">
+            <svg width="46" height="46" viewBox="0 0 46 46" fill="none">
+              <path d="M23 44L6 10H40L23 44Z" fill="#FFD700" stroke="#FFFFFF" stroke-width="3"/>
+            </svg>
+          </div>
+
+          <!-- Outer Glowing Ring -->
+          <div class="p-3 rounded-full bg-gradient-to-tr from-purple-900 via-cyan-900 to-pink-900 box-neon-cyan shadow-[0_0_45px_rgba(0,243,255,0.45)]">
+            <canvas id="wheelCanvas" width="360" height="360" class="w-[270px] h-[270px] sm:w-[330px] sm:h-[330px] md:w-[360px] md:h-[360px] rounded-full block"></canvas>
+          </div>
+        </div>
+
+        <!-- Selected Question Banner Overlay -->
+        <div id="wheelSelectedBanner" class="mt-2 min-h-[40px] flex items-center justify-center">
+          <div id="wheelStatusMessage" class="font-cyber text-sm md:text-base font-bold text-yellow-300 glow-gold text-center px-4 py-1.5 rounded-xl bg-slate-900/80 border border-yellow-400/50">
+            🤏 Cubit (Pinch) atau Tekan "PUTAR RODA" untuk bermula!
+          </div>
+        </div>
+      </div>
+
+      <!-- Right Column: MediaPipe Hand Gesture Camera HUD + Touch Fallback Controls -->
+      <div class="w-full max-w-md flex flex-col gap-4">
+        
+        <!-- Camera & Hand Gesture Box -->
+        <div class="hologram-panel box-neon-purple rounded-3xl p-4 flex flex-col gap-3">
+          <div class="flex items-center justify-between">
+            <div class="flex items-center gap-2">
+              <span class="w-3 h-3 rounded-full bg-emerald-400 animate-ping" id="camPulseDot"></span>
+              <span class="font-cyber text-xs md:text-sm font-bold text-cyan-300">PENGEKori GERAK TANGAN AI</span>
+            </div>
+            <span id="gestureBadge" class="font-cyber text-[11px] font-bold px-2.5 py-1 rounded-full bg-slate-800 border border-cyan-400/60 text-cyan-300">
+              MEMUATKAN KAMERA...
+            </span>
+          </div>
+
+          <!-- Video + Landmark Canvas Wrapper -->
+          <div class="relative w-full h-44 sm:h-48 bg-slate-950 rounded-2xl overflow-hidden border-2 border-cyan-500/50 flex items-center justify-center">
+            <video id="webcamVideo" playsinline muted autoplay class="w-full h-full object-cover transform scale-x-[-1]"></video>
+            <canvas id="landmarkCanvas" class="absolute inset-0 w-full h-full object-cover transform scale-x-[-1] pointer-events-none"></canvas>
+            
+            <!-- Camera Fallback Message if Permission Denied or Unavailable -->
+            <div id="cameraFallbackOverlay" class="hidden absolute inset-0 bg-slate-950/95 p-4 flex-col items-center justify-center text-center">
+              <div class="text-3xl mb-1">📷</div>
+              <div class="font-cyber text-xs font-bold text-amber-300 mb-1">MOD SENTUHAN AKTIF</div>
+              <p class="text-xs text-slate-300 mb-2">Kamera tidak diaktifkan. Anda boleh menggunakan butang sentuhan di bawah atau mengaktifkan kamera.</p>
+              <button onclick="initCameraAndMediaPipe(true)" class="btn-arcade px-3 py-1.5 rounded-lg bg-cyan-600 text-white font-cyber text-xs font-bold border border-cyan-300">
+                AKTIFKAN KAMERA
+              </button>
+            </div>
+          </div>
+
+          <!-- Gesture Instructions Strip -->
+          <div class="grid grid-cols-2 gap-2 text-xs">
+            <div id="guidePinchBox" class="bg-slate-900/85 border border-cyan-500/40 rounded-xl p-2.5 flex items-center gap-2 transition-all">
+              <span class="text-2xl">🤏</span>
+              <div>
+                <div class="font-cyber font-bold text-cyan-300 text-[11px]">GESTURE 1: CUBIT</div>
+                <div class="text-slate-300 text-[11px]">Mula Putar Roda</div>
+              </div>
+            </div>
+            <div id="guidePalmBox" class="bg-slate-900/85 border border-pink-500/40 rounded-xl p-2.5 flex items-center gap-2 transition-all">
+              <span class="text-2xl">✋</span>
+              <div>
+                <div class="font-cyber font-bold text-pink-300 text-[11px]">GESTURE 2: TAPAK</div>
+                <div class="text-slate-300 text-[11px]">Hentikan Roda</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Alternative Touch Controls (Always Available for iPad) -->
+        <div class="hologram-panel box-neon-cyan rounded-3xl p-4">
+          <div class="font-cyber text-xs text-center text-cyan-300 font-bold mb-2.5 tracking-wider">
+            KAWALAN SENTUHAN IPAD (ALTERNATIF)
+          </div>
+          <div class="grid grid-cols-2 gap-3">
+            <button id="btnSpinWheel" onclick="triggerWheelSpin('BUTTON')" class="btn-arcade bg-gradient-to-r from-cyan-500 to-blue-600 text-white font-cyber text-sm md:text-base font-black py-3.5 px-4 rounded-2xl border-2 border-cyan-200 shadow-[0_0_20px_rgba(0,243,255,0.6)] flex items-center justify-center gap-2">
+              <span>🌀</span>
+              <span>PUTAR RODA</span>
+            </button>
+
+            <button id="btnStopWheel" onclick="triggerWheelStop('BUTTON')" disabled class="btn-arcade bg-gradient-to-r from-pink-500 to-amber-500 text-white font-cyber text-sm md:text-base font-black py-3.5 px-4 rounded-2xl border-2 border-yellow-200 shadow-[0_0_20px_rgba(255,0,127,0.6)] flex items-center justify-center gap-2">
+              <span>✋</span>
+              <span>BERHENTI</span>
+            </button>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ======================================================================= -->
+    <!-- SCREEN 3: PAPARAN SOALAN & MESIN ATM (MASUKKAN KAD JAWAPAN)             -->
+    <!-- ======================================================================= -->
+    <section id="screenQuestion" class="hidden w-full flex-col gap-3 md:gap-4 py-1 animate-holo">
+      
+      <!-- Top Row: Question Hologram Panel + Interactive Futuristic ATM Machine -->
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-4 items-stretch">
+
+        <!-- Left 7 Cols: Question Display Panel -->
+        <div id="questionHoloBox" class="lg:col-span-7 hologram-panel box-neon-cyan rounded-3xl p-4 sm:p-6 flex flex-col justify-between relative">
+          <div>
+            <!-- Question Header Badges -->
+            <div class="flex flex-wrap items-center justify-between gap-2 mb-3">
+              <div class="inline-flex items-center gap-2 bg-gradient-to-r from-purple-700 to-pink-600 px-4 py-1.5 rounded-xl border border-pink-300 shadow-[0_0_15px_rgba(255,0,127,0.5)]">
+                <span class="font-cyber text-sm md:text-base font-black text-white" id="qNumberBadge">SOALAN #1</span>
+              </div>
+              <div class="font-cyber text-xs md:text-sm font-bold text-yellow-300 bg-yellow-500/15 border border-yellow-400/50 px-3 py-1 rounded-xl">
+                GANJARAN: +RM 1,000
+              </div>
+            </div>
+
+            <!-- Original Quiz Instruction -->
+            <div class="bg-purple-950/80 border border-purple-400/50 rounded-xl px-3.5 py-2 mb-4 flex items-center gap-2">
+              <span class="font-cyber text-xs font-extrabold bg-amber-400 text-slate-950 px-2 py-0.5 rounded">ARAHAN</span>
+              <span class="text-xs sm:text-sm text-amber-200 font-semibold">
+                Pilih jawapan yang paling tepat dan tandakan (✓) pada A, B atau C.
+              </span>
+            </div>
+
+            <!-- Main Question Text (Large, Clear, Never Clipped) -->
+            <div class="my-2 bg-slate-950/75 border border-cyan-500/40 rounded-2xl p-4 sm:p-5 shadow-inner">
+              <p id="qTextDisplay" class="text-lg sm:text-xl md:text-2xl font-extrabold text-white leading-relaxed">
+                Adakah perkataan “tanggungjawab” merupakan kata majmuk bebas? Mengapa?
+              </p>
+            </div>
+          </div>
+
+          <!-- Prompt Banner: SILA MASUKKAN KAD JAWAPAN ANDA -->
+          <div class="mt-3 bg-gradient-to-r from-cyan-950 via-blue-950 to-purple-950 border-2 border-cyan-400/80 rounded-2xl p-3 flex items-center justify-between gap-3 shadow-[0_0_18px_rgba(0,243,255,0.3)]">
+            <div class="flex items-center gap-2.5">
+              <span class="text-2xl animate-bounce">💳</span>
+              <div>
+                <div class="font-cyber text-xs sm:text-sm md:text-base font-black text-cyan-300 glow-cyan">
+                  SILA MASUKKAN KAD JAWAPAN ANDA
+                </div>
+                <div class="text-xs text-slate-300">
+                  Sentuh salah satu kad jawapan (A, B atau C) di bawah untuk dimasukkan ke dalam slot ATM.
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right 5 Cols: Interactive Futuristic ATM Machine Terminal -->
+        <div id="atmMachineTerminal" class="lg:col-span-5 hologram-panel box-neon-purple rounded-3xl p-4 sm:p-5 flex flex-col justify-between relative transition-all duration-300">
+          
+          <!-- ATM Top Header -->
+          <div class="flex items-center justify-between border-b border-purple-400/40 pb-2.5 mb-3">
+            <div class="flex items-center gap-2">
+              <span class="w-3 h-3 rounded-full bg-cyan-400 shadow-[0_0_8px_#00f3ff]"></span>
+              <span class="font-cyber text-xs sm:text-sm font-black text-purple-200 tracking-wider">TERMINAL ATM KEWANGAN</span>
+            </div>
+            <span id="atmSecurityBadge" class="font-cyber text-[10px] font-bold px-2.5 py-0.5 rounded bg-cyan-500/20 text-cyan-300 border border-cyan-400/40">
+              SEDIA MENERIMA KAD
+            </span>
+          </div>
+
+          <!-- ATM Hologram Monitor Screen (Shows Idle / Processing / Countdown 3-2-1 / Result) -->
+          <div id="atmScreenMonitor" class="relative min-h-[165px] sm:min-h-[180px] bg-slate-950 border-2 border-cyan-400 rounded-2xl p-4 flex flex-col items-center justify-center text-center overflow-hidden shadow-[inset_0_0_30px_rgba(0,243,255,0.28)]">
+            
+            <!-- State A: Waiting for Card -->
+            <div id="atmStateIdle" class="flex flex-col items-center justify-center">
+              <div class="text-3xl mb-1 animate-pulse">🏧</div>
+              <div class="font-cyber text-sm sm:text-base font-extrabold text-cyan-300 glow-cyan">
+                SILA MASUKKAN KAD JAWAPAN ANDA
+              </div>
+              <div class="text-xs text-slate-400 mt-1">
+                Pilih Kad A, B atau C untuk memulakan transaksi semakan.
+              </div>
+            </div>
+
+            <!-- State B: Processing + Countdown 3... 2... 1... -->
+            <div id="atmStateProcessing" class="hidden flex-col items-center justify-center w-full">
+              <div class="font-cyber text-xs sm:text-sm font-bold text-yellow-300 tracking-widest uppercase mb-1 animate-pulse">
+                MEMPROSES JAWAPAN...
+              </div>
+              <div id="atmSelectedCardTag" class="text-xs font-cyber text-cyan-300 bg-cyan-950/90 border border-cyan-400/50 px-3 py-0.5 rounded-full mb-2">
+                KAD DIPILIH: A
+              </div>
+              <div id="atmCountdownNumber" class="font-cyber text-5xl sm:text-6xl font-black text-yellow-400 glow-gold my-1">
+                3...
+              </div>
+            </div>
+
+            <!-- State C: Verification Result (Success or Error) -->
+            <div id="atmStateResult" class="hidden flex-col items-center justify-center w-full z-10">
+              <div id="atmResultIcon" class="text-3xl sm:text-4xl mb-1">✅</div>
+              <div id="atmResultTitle" class="font-cyber text-base sm:text-lg font-black tracking-wide">
+                TRANSAKSI BERJAYA!
+              </div>
+              <div id="atmResultSubtitle" class="font-cyber text-xs sm:text-sm font-bold mt-0.5">
+                JAWAPAN ANDA BETUL!
+              </div>
+              <!-- Next Question Button (Shown ONLY when answer is CORRECT) -->
+              <button id="btnNextQuestion" onclick="goToNextQuestion()" class="hidden mt-3 btn-arcade bg-gradient-to-r from-emerald-400 via-green-500 to-teal-500 text-slate-950 font-cyber text-xs sm:text-sm font-black px-5 py-2.5 rounded-xl border-2 border-white shadow-[0_0_25px_#00ff88] items-center gap-2">
+                <span>SOALAN SETERUSNYA</span>
+                <span>➡️</span>
+              </button>
+            </div>
+
+          </div>
+
+          <!-- ATM Hardware Bay: Card Reader Slot & Cash Dispenser Slot -->
+          <div class="mt-3 grid grid-cols-12 gap-3 items-center bg-slate-900/95 p-3 rounded-2xl border border-cyan-500/40 relative">
+            
+            <!-- Left 7 Cols: Cash Dispenser Slot (Wang Kertas & Syiling Keluar Di Sini) -->
+            <div class="col-span-7 flex flex-col">
+              <div class="flex items-center justify-between mb-1">
+                <span class="font-cyber text-[10px] font-bold text-yellow-300">RUANG GANJARAN TUNAI</span>
+                <span class="text-[10px] text-emerald-400 font-cyber">RM / EMAS</span>
+              </div>
+              <div id="cashDispenserSlot" class="relative h-8 bg-slate-950 rounded-xl border-2 border-yellow-400/80 shadow-[inset_0_0_12px_rgba(255,215,0,0.5)] flex items-center justify-center overflow-visible">
+                <div class="w-5/6 h-2 bg-gradient-to-r from-yellow-600 via-yellow-300 to-yellow-600 rounded-full opacity-75"></div>
+                <!-- Dynamic Ejected Cash & Coins Container -->
+                <div id="cashBurstContainer" class="absolute inset-0 pointer-events-none overflow-visible"></div>
+              </div>
+            </div>
+
+            <!-- Right 5 Cols: ATM Card Insertion Slot -->
+            <div class="col-span-5 flex flex-col items-center relative">
+              <div class="font-cyber text-[10px] font-bold text-cyan-300 mb-1">SLOT KAD ATM</div>
+              <div id="atmCardSlotVisual" class="relative w-full h-8 bg-slate-950 rounded-xl border-2 border-cyan-400 atm-slot-active flex items-center justify-center overflow-visible">
+                <div class="w-4/5 h-2 bg-cyan-300 rounded-full shadow-[0_0_10px_#00f3ff]"></div>
+
+                <!-- Animated Flying Card Entering / Ejecting Slot -->
+                <div id="flyingCardElement" class="hidden absolute left-1/2 -translate-x-1/2 top-0 w-28 h-16 rounded-xl bg-gradient-to-br from-cyan-400 via-blue-600 to-purple-700 border-2 border-white shadow-[0_0_25px_#00f3ff] p-2 flex-col justify-between z-30 pointer-events-none">
+                  <div class="flex justify-between items-center">
+                    <span class="w-4 h-3 rounded-sm bg-yellow-300 border border-amber-600"></span>
+                    <span id="flyingCardLabel" class="font-cyber text-xs font-black text-white">KAD A</span>
+                  </div>
+                  <div class="h-1.5 w-full bg-cyan-200/60 rounded"></div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+
+      <!-- Bottom Row: 3 Selectable Glowing ATM Answer Cards (KAD A, KAD B, KAD C) -->
+      <div class="w-full mt-1">
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-3 md:gap-4" id="answerCardsContainer">
+          
+          <!-- Card A -->
+          <button id="cardBtnA" onclick="selectAnswerCard('A')" class="atm-answer-card btn-arcade rounded-2xl p-4 text-left flex flex-col justify-between min-h-[118px] group">
+            <div class="flex items-center justify-between w-full mb-2">
+              <div class="flex items-center gap-2">
+                <!-- EMV Gold Chip SVG -->
+                <div class="w-8 h-6 rounded-md bg-gradient-to-br from-yellow-200 via-yellow-400 to-amber-600 border border-yellow-100 flex items-center justify-center shadow-[0_0_10px_rgba(255,215,0,0.5)]">
+                  <div class="w-5 h-3.5 border border-amber-800/60 rounded-xs"></div>
+                </div>
+                <span class="font-cyber text-xs font-bold text-cyan-300 tracking-wider">KAD JAWAPAN</span>
+              </div>
+              <span class="font-cyber text-xl sm:text-2xl font-black px-3 py-0.5 rounded-xl bg-cyan-500/25 border border-cyan-300 text-cyan-200 glow-cyan">
+                A
+              </span>
+            </div>
+            <p id="optionTextA" class="text-sm sm:text-base md:text-lg font-bold text-white leading-snug">
+              Pilihan A
+            </p>
+            <div class="mt-2 flex items-center justify-between text-[11px] font-cyber text-cyan-300/80 border-t border-cyan-500/30 pt-1.5">
+              <span>SENTUH UNTUK MASUKKAN KAD</span>
+              <span>⬆️ SLOT ATM</span>
+            </div>
+          </button>
+
+          <!-- Card B -->
+          <button id="cardBtnB" onclick="selectAnswerCard('B')" class="atm-answer-card btn-arcade rounded-2xl p-4 text-left flex flex-col justify-between min-h-[118px] group">
+            <div class="flex items-center justify-between w-full mb-2">
+              <div class="flex items-center gap-2">
+                <div class="w-8 h-6 rounded-md bg-gradient-to-br from-yellow-200 via-yellow-400 to-amber-600 border border-yellow-100 flex items-center justify-center shadow-[0_0_10px_rgba(255,215,0,0.5)]">
+                  <div class="w-5 h-3.5 border border-amber-800/60 rounded-xs"></div>
+                </div>
+                <span class="font-cyber text-xs font-bold text-purple-300 tracking-wider">KAD JAWAPAN</span>
+              </div>
+              <span class="font-cyber text-xl sm:text-2xl font-black px-3 py-0.5 rounded-xl bg-purple-500/25 border border-purple-300 text-purple-200">
+                B
+              </span>
+            </div>
+            <p id="optionTextB" class="text-sm sm:text-base md:text-lg font-bold text-white leading-snug">
+              Pilihan B
+            </p>
+            <div class="mt-2 flex items-center justify-between text-[11px] font-cyber text-purple-300/80 border-t border-purple-500/30 pt-1.5">
+              <span>SENTUH UNTUK MASUKKAN KAD</span>
+              <span>⬆️ SLOT ATM</span>
+            </div>
+          </button>
+
+          <!-- Card C -->
+          <button id="cardBtnC" onclick="selectAnswerCard('C')" class="atm-answer-card btn-arcade rounded-2xl p-4 text-left flex flex-col justify-between min-h-[118px] group">
+            <div class="flex items-center justify-between w-full mb-2">
+              <div class="flex items-center gap-2">
+                <div class="w-8 h-6 rounded-md bg-gradient-to-br from-yellow-200 via-yellow-400 to-amber-600 border border-yellow-100 flex items-center justify-center shadow-[0_0_10px_rgba(255,215,0,0.5)]">
+                  <div class="w-5 h-3.5 border border-amber-800/60 rounded-xs"></div>
+                </div>
+                <span class="font-cyber text-xs font-bold text-pink-300 tracking-wider">KAD JAWAPAN</span>
+              </div>
+              <span class="font-cyber text-xl sm:text-2xl font-black px-3 py-0.5 rounded-xl bg-pink-500/25 border border-pink-300 text-pink-200 glow-pink">
+                C
+              </span>
+            </div>
+            <p id="optionTextC" class="text-sm sm:text-base md:text-lg font-bold text-white leading-snug">
+              Pilihan C
+            </p>
+            <div class="mt-2 flex items-center justify-between text-[11px] font-cyber text-pink-300/80 border-t border-pink-500/30 pt-1.5">
+              <span>SENTUH UNTUK MASUKKAN KAD</span>
+              <span>⬆️ SLOT ATM</span>
+            </div>
+          </button>
+
+        </div>
+      </div>
+
+    </section>
+
+    <!-- ======================================================================= -->
+    <!-- SCREEN 4: SKRIN KEPUTUSAN AKHIR (FINAL RESULTS SCREEN)                  -->
+    <!-- ======================================================================= -->
+    <section id="screenResult" class="hidden w-full max-w-3xl mx-auto py-4 animate-holo">
+      <div class="hologram-panel box-neon-gold rounded-3xl p-6 sm:p-8 text-center relative overflow-hidden shadow-[0_0_60px_rgba(255,215,0,0.35)]">
+        
+        <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-yellow-500/20 border border-yellow-300 text-yellow-300 font-cyber text-xs sm:text-sm font-bold mb-3">
+          <span>🏆 LAPORAN EKSPEDISI KEWANGAN</span>
+        </div>
+
+        <h2 id="finalHeaderTitle" class="font-cyber text-3xl sm:text-4xl md:text-5xl font-black text-white glow-gold mb-2">
+          TAHNIAH! EKSPEDISI SELESAI!
+        </h2>
+        <p class="text-slate-300 text-sm sm:text-base mb-6">
+          Berikut ialah penyata rasmi transaksi Pasport Kata Majmuk anda:
+        </p>
+
+        <!-- Stats Cards Grid -->
+        <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-4 mb-6">
+          <!-- Answered Count -->
+          <div class="bg-slate-950/85 border-2 border-emerald-400/70 rounded-2xl p-3.5 shadow-[0_0_20px_rgba(0,255,136,0.2)]">
+            <div class="text-2xl mb-1">✅</div>
+            <div class="font-cyber text-[11px] text-emerald-300 font-bold">BERJAYA DIJAWAB</div>
+            <div id="finalAnsweredStat" class="font-cyber text-2xl sm:text-3xl font-black text-white mt-1">10 / 10</div>
+          </div>
+
+          <!-- Unanswered Count -->
+          <div class="bg-slate-950/85 border-2 border-pink-400/70 rounded-2xl p-3.5 shadow-[0_0_20px_rgba(255,0,127,0.2)]">
+            <div class="text-2xl mb-1">⏳</div>
+            <div class="font-cyber text-[11px] text-pink-300 font-bold">BELUM DIJAWAB</div>
+            <div id="finalUnansweredStat" class="font-cyber text-2xl sm:text-3xl font-black text-white mt-1">0 / 10</div>
+          </div>
+
+          <!-- Overall Percentage Score -->
+          <div class="bg-slate-950/85 border-2 border-cyan-400/70 rounded-2xl p-3.5 shadow-[0_0_20px_rgba(0,243,255,0.2)]">
+            <div class="text-2xl mb-1">📊</div>
+            <div class="font-cyber text-[11px] text-cyan-300 font-bold">MARKAH KESELURUHAN</div>
+            <div id="finalScorePercent" class="font-cyber text-2xl sm:text-3xl font-black text-cyan-300 glow-cyan mt-1">100%</div>
+          </div>
+
+          <!-- Total Cash Reward -->
+          <div class="bg-slate-950/85 border-2 border-yellow-400/80 rounded-2xl p-3.5 shadow-[0_0_20px_rgba(255,215,0,0.3)]">
+            <div class="text-2xl mb-1">💰</div>
+            <div class="font-cyber text-[11px] text-yellow-300 font-bold">GANJARAN TERKUMPUL</div>
+            <div id="finalRewardAmount" class="font-cyber text-xl sm:text-2xl font-black text-yellow-400 glow-gold mt-1">RM 10,000</div>
+          </div>
+        </div>
+
+        <!-- Reward Vault Animation Box -->
+        <div class="bg-gradient-to-r from-purple-950/90 via-indigo-950/90 to-slate-950/90 border border-yellow-400/50 rounded-2xl p-4 mb-6 flex flex-col sm:flex-row items-center justify-center gap-4">
+          <div class="text-4xl sm:text-5xl animate-bounce">💵🪙💎</div>
+          <div class="text-center sm:text-left">
+            <div class="font-cyber text-sm sm:text-base font-bold text-yellow-300">AKAUN SIMPANAN PINTAR KATA MAJMUK</div>
+            <div class="text-xs sm:text-sm text-slate-300">Anda telah menguasai kemahiran mengenal pasti Kata Majmuk Bebas dan Kata Majmuk Mantap!</div>
+          </div>
+        </div>
+
+        <!-- Play Again Button -->
+        <button onclick="resetAndRestartGame()" class="btn-arcade bg-gradient-to-r from-yellow-400 via-amber-500 to-orange-500 text-slate-950 font-cyber text-lg sm:text-xl font-black px-10 py-4 rounded-2xl border-2 border-white shadow-[0_0_35px_rgba(255,215,0,0.8)] inline-flex items-center gap-3">
+          <span>🔄</span>
+          <span>MAIN SEMULA</span>
+        </button>
+
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ========================================================================= -->
+  <!-- CONFIRMATION MODAL: TAMATKAN PERMAINAN?                                   -->
+  <!-- ========================================================================= -->
+  <div id="endGameModal" class="hidden fixed inset-0 z-50 bg-slate-950/85 backdrop-blur-md flex items-center justify-center p-4">
+    <div class="hologram-panel box-neon-purple rounded-3xl max-w-md w-full p-6 text-center animate-holo shadow-[0_0_50px_rgba(255,0,127,0.5)]">
+      <div class="text-5xl mb-3">⚠️</div>
+      <h3 class="font-cyber text-2xl sm:text-3xl font-black text-white glow-pink mb-2">
+        TAMATKAN PERMAINAN?
+      </h3>
+      <p class="text-slate-300 text-sm sm:text-base mb-6">
+        Adakah anda pasti mahu menamatkan sesi permainan ini sekarang dan melihat skrin keputusan akhir?
+      </p>
+      <div class="flex flex-col sm:flex-row gap-3 justify-center">
+        <button onclick="confirmEndGame()" class="btn-arcade flex-1 bg-gradient-to-r from-rose-600 to-red-600 text-white font-cyber text-sm sm:text-base font-black py-3.5 px-5 rounded-2xl border-2 border-pink-300 shadow-[0_0_20px_rgba(255,30,86,0.7)]">
+          YA, TAMATKAN
+        </button>
+        <button onclick="closeEndGameModal()" class="btn-arcade flex-1 bg-gradient-to-r from-cyan-500 to-blue-600 text-white font-cyber text-sm sm:text-base font-black py-3.5 px-5 rounded-2xl border-2 border-cyan-200 shadow-[0_0_20px_rgba(0,243,255,0.6)]">
+          KEMBALI BERMAIN
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========================================================================= -->
+  <!-- APPLICATION LOGIC & MEDIAPIPE HAND LANDMARKER INTEGRATION                 -->
+  <!-- ========================================================================= -->
+  <script type="module">
+    import {
+      FilesetResolver,
+      HandLandmarker
+    } from "https://cdn.jsdelivr.net/npm/@mediapipe/tasks-vision@0.10.14/+esm";
+
+    // =========================================================================
+    // 1. EXACT 10 QUESTIONS FROM "PASPORT KATA MAJMUK - Ekspedisi Kewangan"
+    // =========================================================================
+    const QUESTION_BANK = [
+      {
+        id: 1,
+        question: "Adakah perkataan “tanggungjawab” merupakan kata majmuk bebas? Mengapa?",
+        options: {
+          A: "Ya, kerana terdiri daripada dua perkataan yang mempunyai makna tersendiri.",
+          B: "Tidak, kerana dieja secara bercantum dan merupakan kata majmuk mantap.",
+          C: "Tidak, kerana semua kata majmuk dieja secara bercantum."
+        },
+        correct: "B"
+      },
+      {
+        id: 2,
+        question: "Ibu membeli beberapa _______________ untuk kegunaan adik di sekolah.",
+        options: {
+          A: "alat tulis",
+          B: "kakitangan",
+          C: "alat permainan"
+        },
+        correct: "A"
+      },
+      {
+        id: 3,
+        question: "Antara berikut, yang manakah merupakan kata majmuk mantap?",
+        options: {
+          A: "wang kertas",
+          B: "jalan raya",
+          C: "kerjasama"
+        },
+        correct: "C"
+      },
+      {
+        id: 4,
+        question: "Semua murid perlu memberikan _______________ semasa menjalankan aktiviti berkumpulan.",
+        options: {
+          A: "meja makan",
+          B: "kerjasama",
+          C: "kerja sekolah"
+        },
+        correct: "B"
+      },
+      {
+        id: 5,
+        question: "Pilih pernyataan yang betul tentang kata majmuk bebas.",
+        options: {
+          A: "Dieja secara bercantum.",
+          B: "Dieja secara terpisah.",
+          C: "Dieja dengan menggunakan tanda sempang."
+        },
+        correct: "B"
+      },
+      {
+        id: 6,
+        question: "Yang manakah pasangan kata majmuk bebas yang betul?",
+        options: {
+          A: "pasaran saham",
+          B: "setiausaha",
+          C: "tandatangan"
+        },
+        correct: "A"
+      },
+      {
+        id: 7,
+        question: "Perkataan manakah yang dieja dengan betul sebagai kata majmuk mantap?",
+        options: {
+          A: "setia usaha",
+          B: "setia-usaha",
+          C: "setiausaha"
+        },
+        correct: "C"
+      },
+      {
+        id: 8,
+        question: "Setiap _______________ perlu mematuhi peraturan yang ditetapkan oleh negara.",
+        options: {
+          A: "ibu bapa",
+          B: "warganegara",
+          C: "warga sekolah"
+        },
+        correct: "B"
+      },
+      {
+        id: 9,
+        question: "Yang manakah merupakan contoh kata majmuk bebas?",
+        options: {
+          A: "tandatangan",
+          B: "jawatankuasa",
+          C: "buku teks"
+        },
+        correct: "C"
+      },
+      {
+        id: 10,
+        question: "Mengapakah perkataan “jawatankuasa” tergolong dalam kata majmuk mantap?",
+        options: {
+          A: "Kerana dieja secara bercantum.",
+          B: "Kerana dieja secara terpisah.",
+          C: "Kerana mempunyai tiga perkataan."
+        },
+        correct: "A"
+      }
+    ];
+
+    // =========================================================================
+    // 2. GAME STATE MANAGEMENT
+    // =========================================================================
+    const gameState = {
+      screen: "HOME", // HOME | WHEEL | QUESTION | RESULT
+      remainingIds: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
+      completedIds: [],
+      currentQuestion: null,
+      rewardCash: 0,
+      isProcessingCard: false,
+      countdownTimer: null,
+
+      // Wheel state
+      wheelAngle: 0,
+      wheelState: "IDLE", // IDLE | SPINNING | STOPPING | SELECTED
+      wheelVelocity: 0,
+      lastSliceIndex: -1,
+
+      // Gesture state
+      pinchConsecutiveFrames: 0,
+      palmConsecutiveFrames: 0,
+      pinchLatch: false
+    };
+
+    // =========================================================================
+    // 3. SYNTHESIZED WEB AUDIO API SOUND SYSTEM (BGM + 10 DISTINCT SFX)
+    // =========================================================================
+    class CyberAudioEngine {
+      constructor() {
+        this.ctx = null;
+        this.masterGain = null;
+        this.bgmGain = null;
+        this.sfxGain = null;
+        this.enabled = true;
+        this.volume = 0.75;
+        this.bgmInterval = null;
+        this.bgmStep = 0;
+      }
+
+      init() {
+        if (!this.ctx) {
+          const AudioCtx = window.AudioContext || window.webkitAudioContext;
+          this.ctx = new AudioCtx();
+          this.masterGain = this.ctx.createGain();
+          this.bgmGain = this.ctx.createGain();
+          this.sfxGain = this.ctx.createGain();
+
+          this.bgmGain.gain.value = 0.16;
+          this.sfxGain.gain.value = 0.85;
+          this.masterGain.gain.value = this.volume;
+
+          this.bgmGain.connect(this.masterGain);
+          this.sfxGain.connect(this.masterGain);
+          this.masterGain.connect(this.ctx.destination);
+        }
+        if (this.ctx.state === "suspended") {
+          this.ctx.resume();
+        }
+      }
+
+      setVolume(val) {
+        this.volume = Math.max(0, Math.min(1, val / 100));
+        if (this.masterGain && this.ctx) {
+          this.masterGain.gain.setValueAtTime(this.enabled ? this.volume : 0, this.ctx.currentTime);
+        }
+      }
+
+      toggleMute() {
+        this.init();
+        this.enabled = !this.enabled;
+        if (this.masterGain && this.ctx) {
+          this.masterGain.gain.setValueAtTime(this.enabled ? this.volume : 0, this.ctx.currentTime);
+        }
+        return this.enabled;
+      }
+
+      startBGM() {
+        this.init();
+        if (this.bgmInterval) return;
+        // Futuristic Financial Expedition Synth Arpeggio
+        const scale = [130.81, 164.81, 196.00, 246.94, 261.63, 246.94, 196.00, 164.81];
+        this.bgmInterval = setInterval(() => {
+          if (!this.enabled || !this.ctx || this.ctx.state !== "running") return;
+          const now = this.ctx.currentTime;
+          const freq = scale[this.bgmStep % scale.length];
+          const osc = this.ctx.createOscillator();
+          const g = this.ctx.createGain();
+          osc.type = (this.bgmStep % 4 === 0) ? "triangle" : "sine";
+          osc.frequency.setValueAtTime(freq, now);
+          g.gain.setValueAtTime(0.001, now);
+          g.gain.linearRampToValueAtTime(0.18, now + 0.04);
+          g.gain.exponentialRampToValueAtTime(0.001, now + 0.32);
+          osc.connect(g);
+          g.connect(this.bgmGain);
+          osc.start(now);
+          osc.stop(now + 0.34);
+          this.bgmStep++;
+        }, 280);
+      }
+
+      playTone(freq, type, duration, delay = 0, vol = 0.35, slideTo = null) {
+        if (!this.enabled) return;
+        this.init();
+        const now = this.ctx.currentTime + delay;
+        const osc = this.ctx.createOscillator();
+        const g = this.ctx.createGain();
+        osc.type = type;
+        osc.frequency.setValueAtTime(freq, now);
+        if (slideTo) {
+          osc.frequency.exponentialRampToValueAtTime(slideTo, now + duration);
+        }
+        g.gain.setValueAtTime(0.001, now);
+        g.gain.linearRampToValueAtTime(vol, now + 0.02);
+        g.gain.exponentialRampToValueAtTime(0.001, now + duration);
+        osc.connect(g);
+        g.connect(this.sfxGain);
+        osc.start(now);
+        osc.stop(now + duration + 0.02);
+      }
+
+      // 1. Start Game Button
+      sfxStartGame() {
+        this.playTone(330, "triangle", 0.15, 0, 0.4);
+        this.playTone(440, "triangle", 0.15, 0.1, 0.4);
+        this.playTone(659.25, "sine", 0.35, 0.2, 0.5, 880);
+      }
+
+      // 2. Wheel Starts Spinning + Slice Tick
+      sfxWheelStart() {
+        this.playTone(220, "sawtooth", 0.35, 0, 0.3, 660);
+      }
+      sfxWheelTick() {
+        this.playTone(780, "triangle", 0.045, 0, 0.22, 420);
+      }
+
+      // 3. Wheel Stops & Question Selected
+      sfxWheelStop() {
+        this.playTone(523.25, "triangle", 0.15, 0, 0.45);
+        this.playTone(659.25, "triangle", 0.15, 0.12, 0.45);
+        this.playTone(1046.5, "sine", 0.45, 0.24, 0.55);
+      }
+
+      // 4. ATM Card Inserted
+      sfxCardInsert() {
+        this.playTone(300, "sawtooth", 0.18, 0, 0.35, 620);
+        this.playTone(880, "sine", 0.12, 0.22, 0.4);
+      }
+
+      // 5. ATM Processing Answer
+      sfxProcessing() {
+        this.playTone(580, "sine", 0.08, 0, 0.25);
+        this.playTone(720, "sine", 0.08, 0.1, 0.25);
+      }
+
+      // 6. Countdown 3, 2, 1
+      sfxCountdown(num) {
+        const pitch = num === 1 ? 880 : 660;
+        this.playTone(pitch, "square", 0.18, 0, 0.35);
+      }
+
+      // 7. Correct Answer
+      sfxCorrect() {
+        const notes = [523.25, 659.25, 783.99, 1046.5];
+        notes.forEach((n, idx) => {
+          this.playTone(n, "triangle", 0.22, idx * 0.09, 0.48);
+        });
+      }
+
+      // 8. Wrong Answer
+      sfxWrong() {
+        this.playTone(220, "sawtooth", 0.25, 0, 0.45, 150);
+        this.playTone(175, "sawtooth", 0.38, 0.22, 0.45, 110);
+      }
+
+      // 9. Cash & Coins Reward Dispensed
+      sfxCashReward() {
+        for (let i = 0; i < 6; i++) {
+          this.playTone(1200 + (i % 2) * 350, "sine", 0.12, i * 0.075, 0.38);
+        }
+      }
+
+      // 10. Game Over / Final Victory Fanfare
+      sfxGameComplete() {
+        const fanfare = [523.25, 659.25, 783.99, 1046.5, 783.99, 1046.5];
+        const delays = [0, 0.12, 0.24, 0.36, 0.55, 0.70];
+        fanfare.forEach((f, idx) => {
+          this.playTone(f, "triangle", idx === 5 ? 0.65 : 0.18, delays[idx], 0.5);
+        });
+      }
+    }
+
+    const audio = new CyberAudioEngine();
+
+    window.toggleAudio = function () {
+      const isOn = audio.toggleMute();
+      document.getElementById("audioIcon").textContent = isOn ? "🔊" : "🔇";
+      document.getElementById("audioLabel").textContent = isOn ? "AUDIO ON" : "AUDIO OFF";
+    };
+
+    window.changeVolume = function (val) {
+      audio.setVolume(Number(val));
+    };
+
+    // =========================================================================
+    // 4. BACKGROUND FLOATING RM BANKNOTES & GOLD COINS CANVAS
+    // =========================================================================
+    const bgCanvas = document.getElementById("bgParticleCanvas");
+    const bgCtx = bgCanvas.getContext("2d");
+    let bgParticles = [];
+
+    function resizeBgCanvas() {
+      bgCanvas.width = window.innerWidth;
+      bgCanvas.height = window.innerHeight;
+    }
+    window.addEventListener("resize", resizeBgCanvas);
+    resizeBgCanvas();
+
+    function initBgParticles() {
+      bgParticles = [];
+      const count = 24;
+      for (let i = 0; i < count; i++) {
+        const types = ["RM100", "RM50", "COIN", "SPARK"];
+        bgParticles.push({
+          type: types[i % types.length],
+          x: Math.random() * bgCanvas.width,
+          y: Math.random() * bgCanvas.height,
+          vx: (Math.random() - 0.5) * 0.5,
+          vy: -0.35 - Math.random() * 0.6,
+          size: 16 + Math.random() * 14,
+          angle: Math.random() * Math.PI * 2,
+          vAngle: (Math.random() - 0.5) * 0.012,
+          alpha: 0.22 + Math.random() * 0.35
+        });
+      }
+    }
+    initBgParticles();
+
+    function animateBgParticles() {
+      bgCtx.clearRect(0, 0, bgCanvas.width, bgCanvas.height);
+      for (const p of bgParticles) {
+        p.x += p.vx;
+        p.y += p.vy;
+        p.angle += p.vAngle;
+
+        if (p.y < -50) p.y = bgCanvas.height + 40;
+        if (p.x < -50) p.x = bgCanvas.width + 40;
+        if (p.x > bgCanvas.width + 50) p.x = -40;
+
+        bgCtx.save();
+        bgCtx.translate(p.x, p.y);
+        bgCtx.rotate(p.angle);
+        bgCtx.globalAlpha = p.alpha;
+
+        if (p.type === "RM100" || p.type === "RM50") {
+          const w = p.size * 2.1;
+          const h = p.size * 1.05;
+          bgCtx.fillStyle = p.type === "RM100" ? "#4a154b" : "#004d61";
+          bgCtx.strokeStyle = p.type === "RM100" ? "#b026ff" : "#00f3ff";
+          bgCtx.lineWidth = 1.5;
+          bgCtx.beginPath();
+          bgCtx.roundRect(-w / 2, -h / 2, w, h, 4);
+          bgCtx.fill();
+          bgCtx.stroke();
+          bgCtx.fillStyle = "#ffffff";
+          bgCtx.font = `bold ${Math.round(p.size * 0.45)}px Orbitron, sans-serif`;
+          bgCtx.textAlign = "center";
+          bgCtx.textBaseline = "middle";
+          bgCtx.fillText(p.type, 0, 0);
+        } else if (p.type === "COIN") {
+          const r = p.size * 0.55;
+          bgCtx.fillStyle = "#ffd700";
+          bgCtx.strokeStyle = "#ffffff";
+          bgCtx.lineWidth = 1.5;
+          bgCtx.beginPath();
+          bgCtx.arc(0, 0, r, 0, Math.PI * 2);
+          bgCtx.fill();
+          bgCtx.stroke();
+          bgCtx.fillStyle = "#422006";
+          bgCtx.font = `bold ${Math.round(r * 0.8)}px Orbitron, sans-serif`;
+          bgCtx.textAlign = "center";
+          bgCtx.textBaseline = "middle";
+          bgCtx.fillText("RM", 0, 1);
+        } else {
+          bgCtx.fillStyle = "#00f3ff";
+          bgCtx.beginPath();
+          bgCtx.arc(0, 0, 2.5, 0, Math.PI * 2);
+          bgCtx.fill();
+        }
+        bgCtx.restore();
+      }
+      requestAnimationFrame(animateBgParticles);
+    }
+    requestAnimationFrame(animateBgParticles);
+
+    // =========================================================================
+    // 5. WHEEL OF QUESTIONS (ONLY UNANSWERED QUESTIONS)
+    // =========================================================================
+    const wheelCanvas = document.getElementById("wheelCanvas");
+    const wheelCtx = wheelCanvas.getContext("2d");
+
+    const SLICE_PALETTE = [
+      { bg: "#7e22ce", border: "#00f3ff" },
+      { bg: "#0369a1", border: "#ffd700" },
+      { bg: "#be185d", border: "#00f3ff" },
+      { bg: "#1d4ed8", border: "#ff007f" },
+      { bg: "#0f766e", border: "#ffd700" },
+      { bg: "#6d28d9", border: "#00ff88" },
+      { bg: "#b45309", border: "#00f3ff" },
+      { bg: "#9d174d", border: "#ffd700" },
+      { bg: "#1e40af", border: "#00f3ff" },
+      { bg: "#4c1d95", border: "#ff007f" }
+    ];
+
+    function drawWheel() {
+      const w = wheelCanvas.width;
+      const h = wheelCanvas.height;
+      const cx = w / 2;
+      const cy = h / 2;
+      const radius = w / 2 - 10;
+
+      wheelCtx.clearRect(0, 0, w, h);
+
+      const items = gameState.remainingIds;
+      const count = items.length;
+      if (count === 0) return;
+
+      const arc = (Math.PI * 2) / count;
+
+      for (let i = 0; i < count; i++) {
+        const startAngle = gameState.wheelAngle + i * arc;
+        const endAngle = startAngle + arc;
+        const style = SLICE_PALETTE[items[i] % SLICE_PALETTE.length];
+
+        wheelCtx.save();
+        wheelCtx.beginPath();
+        wheelCtx.moveTo(cx, cy);
+        wheelCtx.arc(cx, cy, radius, startAngle, endAngle);
+        wheelCtx.closePath();
+        wheelCtx.fillStyle = style.bg;
+        wheelCtx.fill();
+        wheelCtx.lineWidth = 3;
+        wheelCtx.strokeStyle = "#00f3ff";
+        wheelCtx.stroke();
+
+        // Draw Question Number Label
+        wheelCtx.translate(cx, cy);
+        wheelCtx.rotate(startAngle + arc / 2);
+        wheelCtx.textAlign = "right";
+        wheelCtx.fillStyle = "#ffffff";
+        wheelCtx.font = "900 22px Orbitron, sans-serif";
+        wheelCtx.shadowColor = "#00f3ff";
+        wheelCtx.shadowBlur = 8;
+        wheelCtx.fillText(`#${items[i]}`, radius - 22, 8);
+        wheelCtx.restore();
+      }
+
+      // Center Hub
+      wheelCtx.save();
+      wheelCtx.beginPath();
+      wheelCtx.arc(cx, cy, 42, 0, Math.PI * 2);
+      wheelCtx.fillStyle = "#080421";
+      wheelCtx.fill();
+      wheelCtx.lineWidth = 4;
+      wheelCtx.strokeStyle = "#ffd700";
+      wheelCtx.stroke();
+
+      wheelCtx.fillStyle = "#ffd700";
+      wheelCtx.font = "900 13px Orbitron, sans-serif";
+      wheelCtx.textAlign = "center";
+      wheelCtx.textBaseline = "middle";
+      wheelCtx.fillText("ATM", cx, cy - 6);
+      wheelCtx.fillStyle = "#00f3ff";
+      wheelCtx.font = "700 10px Orbitron, sans-serif";
+      wheelCtx.fillText("PUTAR", cx, cy + 9);
+      wheelCtx.restore();
+    }
+
+    function getPointedSliceIndex() {
+      const count = gameState.remainingIds.length;
+      if (count === 0) return 0;
+      const arc = (Math.PI * 2) / count;
+      // Top pointer is at -Math.PI / 2 (or 3 * Math.PI / 2)
+      const pointerAngle = (Math.PI * 1.5 - (gameState.wheelAngle % (Math.PI * 2)) + Math.PI * 2) % (Math.PI * 2);
+      return Math.floor(pointerAngle / arc) % count;
+    }
+
+    function updateWheelPhysics() {
+      if (gameState.screen === "WHEEL") {
+        if (gameState.wheelState === "SPINNING") {
+          gameState.wheelAngle += gameState.wheelVelocity;
+          const currentIdx = getPointedSliceIndex();
+          if (currentIdx !== gameState.lastSliceIndex) {
+            audio.sfxWheelTick();
+            gameState.lastSliceIndex = currentIdx;
+          }
+          drawWheel();
+        } else if (gameState.wheelState === "STOPPING") {
+          gameState.wheelAngle += gameState.wheelVelocity;
+          gameState.wheelVelocity *= 0.92; // Smooth braking
+
+          const currentIdx = getPointedSliceIndex();
+          if (currentIdx !== gameState.lastSliceIndex) {
+            audio.sfxWheelTick();
+            gameState.lastSliceIndex = currentIdx;
+          }
+          drawWheel();
+
+          if (gameState.wheelVelocity < 0.004) {
+            gameState.wheelVelocity = 0;
+            gameState.wheelState = "SELECTED";
+            finalizeWheelSelection();
+          }
+        }
+      }
+      requestAnimationFrame(updateWheelPhysics);
+    }
+    requestAnimationFrame(updateWheelPhysics);
+
+    window.triggerWheelSpin = function (source = "BUTTON") {
+      if (gameState.screen !== "WHEEL") return;
+      if (gameState.wheelState !== "IDLE") return; // Prevent re-triggering while already spinning
+
+      audio.sfxWheelStart();
+      gameState.wheelState = "SPINNING";
+      gameState.wheelVelocity = 0.24 + Math.random() * 0.06;
+
+      document.getElementById("btnSpinWheel").disabled = true;
+      document.getElementById("btnStopWheel").disabled = false;
+
+      const msgEl = document.getElementById("wheelStatusMessage");
+      msgEl.textContent = source === "GESTURE"
+        ? "🌀 CUBIT DIKESAN! Roda sedang berputar... Buka Tapak Tangan ✋ untuk berhenti!"
+        : "🌀 Roda sedang berputar... Buka Tapak Tangan ✋ atau tekan BERHENTI!";
+      msgEl.className = "font-cyber text-sm md:text-base font-bold text-cyan-300 glow-cyan text-center px-4 py-1.5 rounded-xl bg-cyan-950/80 border border-cyan-400";
+    };
+
+    window.triggerWheelStop = function (source = "BUTTON") {
+      if (gameState.screen !== "WHEEL") return;
+      if (gameState.wheelState !== "SPINNING") return;
+
+      // Randomize slight additional angle so selection from remaining questions is genuinely random
+      gameState.wheelAngle += Math.random() * Math.PI * 2;
+      gameState.wheelState = "STOPPING";
+      document.getElementById("btnStopWheel").disabled = true;
+
+      const msgEl = document.getElementById("wheelStatusMessage");
+      msgEl.textContent = source === "GESTURE"
+        ? "✋ TAPAK TANGAN DIKESAN! Roda sedang berhenti..."
+        : "✋ Menghentikan roda...";
+      msgEl.className = "font-cyber text-sm md:text-base font-bold text-pink-300 glow-pink text-center px-4 py-1.5 rounded-xl bg-pink-950/80 border border-pink-400";
+    };
+
+    function finalizeWheelSelection() {
+      const idx = getPointedSliceIndex();
+      const chosenId = gameState.remainingIds[idx];
+      const questionObj = QUESTION_BANK.find(q => q.id === chosenId);
+      gameState.currentQuestion = questionObj;
+
+      audio.sfxWheelStop();
+      const msgEl = document.getElementById("wheelStatusMessage");
+      msgEl.innerHTML = `✨ <span class="text-white">SOALAN #${chosenId} TERPILIH!</span> Membuka Terminal ATM...`;
+      msgEl.className = "font-cyber text-base md:text-lg font-black text-yellow-300 glow-gold text-center px-5 py-2 rounded-xl bg-yellow-500/20 border-2 border-yellow-300 animate-bounce";
+
+      setTimeout(() => {
+        showQuestionScreen(questionObj);
+      }, 1350);
+    }
+
+    // =========================================================================
+    // 6. MEDIAPIPE HAND LANDMARKER (CAMERA + PINCH & OPEN PALM DETECTION)
+    // =========================================================================
+    let handLandmarker = null;
+    let webcamStream = null;
+    let lastVideoTime = -1;
+    const videoEl = document.getElementById("webcamVideo");
+    const landmarkCanvas = document.getElementById("landmarkCanvas");
+    const landmarkCtx = landmarkCanvas.getContext("2d");
+
+    window.initCameraAndMediaPipe = async function (forceRetry = false) {
+      const badge = document.getElementById("gestureBadge");
+      const fallbackOverlay = document.getElementById("cameraFallbackOverlay");
+
+      try {
+        badge.textContent = "MEMOHON KAMERA...";
+        fallbackOverlay.classList.add("hidden");
+        fallbackOverlay.classList.remove("flex");
+
+        if (!webcamStream || forceRetry) {
+          webcamStream = await navigator.mediaDevices.getUserMedia({
+            video: { facingMode: "user", width: { ideal: 640 }, height: { ideal: 480 } },
+            audio: false
+          });
+          videoEl.srcObject = webcamStream;
+          await videoEl.play();
+        }
+
+        if (!handLandmarker) {
+          badge.textContent = "MEMUATKAN AI TANGAN...";
+          const vision = await FilesetResolver.forVisionTasks(
+            "https://cdn.jsdelivr.net/npm/@mediapipe/tasks-vision@0.10.14/wasm"
+          );
+          handLandmarker = await HandLandmarker.createFromOptions(vision, {
+            baseOptions: {
+              modelAssetPath: "https://storage.googleapis.com/mediapipe-models/hand_landmarker/hand_landmarker/float16/1/hand_landmarker.task",
+              delegate: "GPU"
+            },
+            runningMode: "VIDEO",
+            numHands: 1
+          });
+        }
+
+        badge.textContent = "KAMERA AKTIF: SEDIA";
+        badge.className = "font-cyber text-[11px] font-bold px-2.5 py-1 rounded-full bg-emerald-950 border border-emerald-400 text-emerald-300";
+        requestAnimationFrame(predictHandLoop);
+      } catch (err) {
+        console.warn("Camera/MediaPipe unavailable, using Touch Fallback:", err);
+        badge.textContent = "MOD SENTUHAN IPAD";
+        badge.className = "font-cyber text-[11px] font-bold px-2.5 py-1 rounded-full bg-amber-950 border border-amber-400 text-amber-300";
+        fallbackOverlay.classList.remove("hidden");
+        fallbackOverlay.classList.add("flex");
+      }
+    };
+
+    function dist2D(a, b) {
+      return Math.hypot(a.x - b.x, a.y - b.y);
+    }
+
+    function detectHandGesture(landmarks) {
+      const wrist = landmarks[0];
+      const thumbTip = landmarks[4];
+      const indexTip = landmarks[8];
+      const indexMcp = landmarks[5];
+      const middleMcp = landmarks[9];
+
+      // Normalize by hand palm size for consistent iPad camera distance
+      const palmScale = Math.max(0.05, dist2D(wrist, middleMcp));
+      const pinchDistance = dist2D(thumbTip, indexTip) / palmScale;
+
+      // Check finger extension for Open Palm
+      const fingerPairs = [
+        [8, 6],   // Index tip vs PIP
+        [12, 10], // Middle tip vs PIP
+        [16, 14], // Ring tip vs PIP
+        [20, 18]  // Pinky tip vs PIP
+      ];
+      let extendedCount = 0;
+      for (const [tipIdx, pipIdx] of fingerPairs) {
+        if (dist2D(landmarks[tipIdx], wrist) > dist2D(landmarks[pipIdx], wrist) * 1.12) {
+          extendedCount++;
+        }
+      }
+      const thumbExtended = dist2D(thumbTip, indexMcp) / palmScale > 0.65;
+
+      // Pinch: thumb & index close together
+      if (pinchDistance < 0.36) {
+        return "PINCH";
+      }
+      // Open Palm: 4 fingers extended + thumb open + not pinching
+      if (extendedCount >= 4 && thumbExtended && pinchDistance > 0.65) {
+        return "PALM";
+      }
+      return "NONE";
+    }
+
+    function drawHandSkeleton(landmarks) {
+      landmarkCanvas.width = videoEl.videoWidth || 320;
+      landmarkCanvas.height = videoEl.videoHeight || 240;
+      landmarkCtx.clearRect(0, 0, landmarkCanvas.width, landmarkCanvas.height);
+
+      const connections = [
+        [0,1],[1,2],[2,3],[3,4],
+        [0,5],[5,6],[6,7],[7,8],
+        [5,9],[9,10],[10,11],[11,12],
+        [9,13],[13,14],[14,15],[15,16],
+        [13,17],[17,18],[18,19],[19,20],[0,17]
+      ];
+
+      landmarkCtx.strokeStyle = "#00f3ff";
+      landmarkCtx.lineWidth = 3;
+      for (const [a, b] of connections) {
+        landmarkCtx.beginPath();
+        landmarkCtx.moveTo(landmarks[a].x * landmarkCanvas.width, landmarks[a].y * landmarkCanvas.height);
+        landmarkCtx.lineTo(landmarks[b].x * landmarkCanvas.width, landmarks[b].y * landmarkCanvas.height);
+        landmarkCtx.stroke();
+      }
+
+      for (let i = 0; i < landmarks.length; i++) {
+        const pt = landmarks[i];
+        landmarkCtx.beginPath();
+        landmarkCtx.arc(pt.x * landmarkCanvas.width, pt.y * landmarkCanvas.height, (i === 4 || i === 8) ? 6 : 4, 0, Math.PI * 2);
+        landmarkCtx.fillStyle = (i === 4 || i === 8) ? "#ffd700" : "#ff007f";
+        landmarkCtx.fill();
+      }
+    }
+
+    function predictHandLoop() {
+      if (videoEl.readyState >= 2 && handLandmarker) {
+        if (videoEl.currentTime !== lastVideoTime) {
+          lastVideoTime = videoEl.currentTime;
+          const result = handLandmarker.detectForVideo(videoEl, performance.now());
+
+          if (result.landmarks && result.landmarks.length > 0) {
+            const lm = result.landmarks[0];
+            drawHandSkeleton(lm);
+            const gesture = detectHandGesture(lm);
+            const badge = document.getElementById("gestureBadge");
+            const pinchBox = document.getElementById("guidePinchBox");
+            const palmBox = document.getElementById("guidePalmBox");
+
+            if (gesture === "PINCH") {
+              gameState.pinchConsecutiveFrames++;
+              gameState.palmConsecutiveFrames = 0;
+              badge.textContent = "🤏 CUBIT DIKESAN";
+              pinchBox.classList.add("box-neon-cyan");
+              palmBox.classList.remove("box-neon-purple");
+
+              // Require 3 stable frames & respect pinch latch so holding pinch doesn't re-trigger
+              if (gameState.pinchConsecutiveFrames >= 3 && !gameState.pinchLatch) {
+                gameState.pinchLatch = true;
+                if (gameState.screen === "WHEEL" && gameState.wheelState === "IDLE") {
+                  window.triggerWheelSpin("GESTURE");
+                }
+              }
+            } else if (gesture === "PALM") {
+              gameState.palmConsecutiveFrames++;
+              gameState.pinchConsecutiveFrames = 0;
+              gameState.pinchLatch = false;
+              badge.textContent = "✋ TAPAK TANGAN TERBUKA";
+              palmBox.classList.add("box-neon-purple");
+              pinchBox.classList.remove("box-neon-cyan");
+
+              if (gameState.palmConsecutiveFrames >= 3) {
+                if (gameState.screen === "WHEEL" && gameState.wheelState === "SPINNING") {
+                  window.triggerWheelStop("GESTURE");
+                }
+              }
+            } else {
+              gameState.pinchConsecutiveFrames = 0;
+              gameState.palmConsecutiveFrames = 0;
+              gameState.pinchLatch = false;
+              badge.textContent = "TANGAN DIKESAN";
+              pinchBox.classList.remove("box-neon-cyan");
+              palmBox.classList.remove("box-neon-purple");
+            }
+          } else {
+            landmarkCtx.clearRect(0, 0, landmarkCanvas.width, landmarkCanvas.height);
+            gameState.pinchConsecutiveFrames = 0;
+            gameState.palmConsecutiveFrames = 0;
+            gameState.pinchLatch = false;
+          }
+        }
+      }
+      requestAnimationFrame(predictHandLoop);
+    }
+
+    // =========================================================================
+    // 7. QUESTION & FUTURISTIC ATM CARD MECHANIC + COUNTDOWN 3-2-1 + CHECKING
+    // =========================================================================
+    function showScreen(screenName) {
+      gameState.screen = screenName;
+      document.getElementById("screenHome").classList.toggle("hidden", screenName !== "HOME");
+      document.getElementById("screenHome").classList.toggle("flex", screenName === "HOME");
+
+      document.getElementById("screenWheel").classList.toggle("hidden", screenName !== "WHEEL");
+      document.getElementById("screenWheel").classList.toggle("flex", screenName === "WHEEL");
+
+      document.getElementById("screenQuestion").classList.toggle("hidden", screenName !== "QUESTION");
+      document.getElementById("screenQuestion").classList.toggle("flex", screenName === "QUESTION");
+
+      document.getElementById("screenResult").classList.toggle("hidden", screenName !== "RESULT");
+    }
+
+    function updateHudProgress() {
+      const done = gameState.completedIds.length;
+      const pct = Math.round((done / QUESTION_BANK.length) * 100);
+      document.getElementById("hudProgressText").textContent = `SOALAN SELESAI: ${done}/10`;
+      document.getElementById("hudProgressBar").style.width = `${pct}%`;
+      document.getElementById("hudRewardText").textContent = `RM ${gameState.rewardCash.toLocaleString()}`;
+    }
+
+    window.startGame = function () {
+      audio.init();
+      audio.sfxStartGame();
+      audio.startBGM();
+      window.initCameraAndMediaPipe(false);
+      openWheelScreen();
+    };
+
+    function openWheelScreen() {
+      if (gameState.remainingIds.length === 0) {
+        showFinalResultsScreen();
+        return;
+      }
+
+      gameState.wheelState = "IDLE";
+      gameState.wheelVelocity = 0;
+      document.getElementById("btnSpinWheel").disabled = false;
+      document.getElementById("btnStopWheel").disabled = true;
+
+      const msgEl = document.getElementById("wheelStatusMessage");
+      msgEl.textContent = "🤏 Cubit (Pinch) atau Tekan \"PUTAR RODA\" untuk memilih soalan!";
+      msgEl.className = "font-cyber text-sm md:text-base font-bold text-yellow-300 glow-gold text-center px-4 py-1.5 rounded-xl bg-slate-900/80 border border-yellow-400/50";
+
+      showScreen("WHEEL");
+      drawWheel();
+    }
+
+    function showQuestionScreen(q) {
+      gameState.isProcessingCard = false;
+
+      // Populate Question Hologram
+      const qBox = document.getElementById("questionHoloBox");
+      qBox.classList.remove("animate-holo");
+      void qBox.offsetWidth;
+      qBox.classList.add("animate-holo");
+
+      document.getElementById("qNumberBadge").textContent = `SOALAN #${q.id}`;
+      document.getElementById("qTextDisplay").textContent = q.question;
+      document.getElementById("optionTextA").textContent = q.options.A;
+      document.getElementById("optionTextB").textContent = q.options.B;
+      document.getElementById("optionTextC").textContent = q.options.C;
+
+      resetAtmTerminalUI();
+      setAnswerCardsEnabled(true);
+      showScreen("QUESTION");
+    }
+
+    function resetAtmTerminalUI() {
+      const terminal = document.getElementById("atmMachineTerminal");
+      const monitor = document.getElementById("atmScreenMonitor");
+      terminal.classList.remove("box-neon-green", "box-neon-red", "animate-shake");
+      monitor.classList.remove("box-neon-green", "box-neon-red");
+
+      document.getElementById("atmSecurityBadge").textContent = "SEDIA MENERIMA KAD";
+      document.getElementById("atmSecurityBadge").className = "font-cyber text-[10px] font-bold px-2.5 py-0.5 rounded bg-cyan-500/20 text-cyan-300 border border-cyan-400/40";
+
+      document.getElementById("atmStateIdle").classList.remove("hidden");
+      document.getElementById("atmStateIdle").classList.add("flex");
+
+      document.getElementById("atmStateProcessing").classList.add("hidden");
+      document.getElementById("atmStateProcessing").classList.remove("flex");
+
+      document.getElementById("atmStateResult").classList.add("hidden");
+      document.getElementById("atmStateResult").classList.remove("flex");
+
+      document.getElementById("btnNextQuestion").classList.add("hidden");
+      document.getElementById("btnNextQuestion").classList.remove("inline-flex");
+
+      const flyingCard = document.getElementById("flyingCardElement");
+      flyingCard.className = "hidden absolute left-1/2 -translate-x-1/2 top-0 w-28 h-16 rounded-xl bg-gradient-to-br from-cyan-400 via-blue-600 to-purple-700 border-2 border-white shadow-[0_0_25px_#00f3ff] p-2 flex-col justify-between z-30 pointer-events-none";
+    }
+
+    function setAnswerCardsEnabled(enabled) {
+      ["A", "B", "C"].forEach(letter => {
+        const btn = document.getElementById(`cardBtn${letter}`);
+        btn.disabled = !enabled;
+      });
+    }
+
+    window.selectAnswerCard = function (choiceLetter) {
+      if (gameState.isProcessingCard || !gameState.currentQuestion) return;
+      gameState.isProcessingCard = true;
+      setAnswerCardsEnabled(false);
+
+      // Clear any previous error styling before starting new transaction
+      resetAtmTerminalUI();
+
+      // 1. Animate ATM Card sliding into the ATM Slot
+      audio.sfxCardInsert();
+      const flyingCard = document.getElementById("flyingCardElement");
+      document.getElementById("flyingCardLabel").textContent = `KAD ${choiceLetter}`;
+      flyingCard.classList.remove("hidden");
+      flyingCard.classList.add("flex", "card-inserting");
+
+      document.getElementById("atmSecurityBadge").textContent = `KAD ${choiceLetter} DIMASUKKAN`;
+
+      // 2. After card enters slot, start ATM Processing + 3... 2... 1... Countdown
+      setTimeout(() => {
+        audio.sfxProcessing();
+        document.getElementById("atmStateIdle").classList.add("hidden");
+        document.getElementById("atmStateIdle").classList.remove("flex");
+
+        const procEl = document.getElementById("atmStateProcessing");
+        procEl.classList.remove("hidden");
+        procEl.classList.add("flex");
+
+        document.getElementById("atmSelectedCardTag").textContent = `KAD DIPILIH: KAD ${choiceLetter}`;
+        const countEl = document.getElementById("atmCountdownNumber");
+
+        let count = 3;
+        countEl.textContent = `${count}...`;
+        audio.sfxCountdown(count);
+
+        if (gameState.countdownTimer) clearInterval(gameState.countdownTimer);
+        gameState.countdownTimer = setInterval(() => {
+          count--;
+          if (count >= 1) {
+            countEl.textContent = `${count}...`;
+            audio.sfxCountdown(count);
+          } else {
+            clearInterval(gameState.countdownTimer);
+            gameState.countdownTimer = null;
+            evaluateSelectedAnswer(choiceLetter);
+          }
+        }, 900);
+      }, 850);
+    };
+
+    function spawnCashAndCoinBurst() {
+      const container = document.getElementById("cashBurstContainer");
+      container.innerHTML = "";
+      for (let i = 0; i < 12; i++) {
+        const item = document.createElement("div");
+        const isBill = i % 2 === 0;
+        item.className = "cash-particle absolute left-1/2 top-1 font-cyber font-black text-xs px-2 py-1 rounded shadow-lg pointer-events-none z-40";
+        const tx = (Math.random() - 0.5) * 190;
+        const ty = 45 + Math.random() * 75;
+        const rot = (Math.random() - 0.5) * 50;
+        item.style.setProperty("--tx", `${tx}px`);
+        item.style.setProperty("--ty", `${ty}px`);
+        item.style.setProperty("--rot", `${rot}deg`);
+
+        if (isBill) {
+          item.classList.add("bg-emerald-500", "text-slate-950", "border", "border-white");
+          item.textContent = "💵 RM100";
+        } else {
+          item.classList.add("bg-yellow-400", "text-slate-950", "rounded-full", "border", "border-white");
+          item.textContent = "🪙 RM";
+        }
+        container.appendChild(item);
+      }
+    }
+
+    function evaluateSelectedAnswer(choiceLetter) {
+      const q = gameState.currentQuestion;
+      const isCorrect = choiceLetter === q.correct;
+
+      const terminal = document.getElementById("atmMachineTerminal");
+      const monitor = document.getElementById("atmScreenMonitor");
+      const procEl = document.getElementById("atmStateProcessing");
+      const resEl = document.getElementById("atmStateResult");
+
+      procEl.classList.add("hidden");
+      procEl.classList.remove("flex");
+      resEl.classList.remove("hidden");
+      resEl.classList.add("flex");
+
+      const iconEl = document.getElementById("atmResultIcon");
+      const titleEl = document.getElementById("atmResultTitle");
+      const subEl = document.getElementById("atmResultSubtitle");
+      const nextBtn = document.getElementById("btnNextQuestion");
+
+      if (isCorrect) {
+        // JAWAPAN BETUL
+        audio.sfxCorrect();
+        setTimeout(() => audio.sfxCashReward(), 320);
+
+        terminal.classList.add("box-neon-green");
+        monitor.classList.add("box-neon-green");
+
+        document.getElementById("atmSecurityBadge").textContent = "TRANSAKSI DILULUSKAN";
+        document.getElementById("atmSecurityBadge").className = "font-cyber text-[10px] font-bold px-2.5 py-0.5 rounded bg-emerald-500/20 text-emerald-300 border border-emerald-400";
+
+        iconEl.textContent = "🎉💵";
+        titleEl.textContent = "TRANSAKSI BERJAYA!";
+        titleEl.className = "font-cyber text-base sm:text-lg font-black text-emerald-300 glow-green";
+        subEl.textContent = "JAWAPAN ANDA BETUL!";
+        subEl.className = "font-cyber text-xs sm:text-sm font-bold text-white mt-0.5";
+
+        // Dispense RM Banknotes & Gold Coins out of ATM Slot
+        spawnCashAndCoinBurst();
+
+        // Mark question completed & remove from remaining wheel list
+        if (!gameState.completedIds.includes(q.id)) {
+          gameState.completedIds.push(q.id);
+          gameState.remainingIds = gameState.remainingIds.filter(id => id !== q.id);
+          gameState.rewardCash += 1000;
+          updateHudProgress();
+        }
+
+        nextBtn.classList.remove("hidden");
+        nextBtn.classList.add("inline-flex");
+        nextBtn.querySelector("span").textContent =
+          gameState.remainingIds.length === 0 ? "LIHAT KEPUTUSAN AKHIR" : "SOALAN SETERUSNYA";
+
+      } else {
+        // JAWAPAN SALAH (Do NOT reveal answer, keep question in list, allow retry)
+        audio.sfxWrong();
+
+        terminal.classList.add("box-neon-red", "animate-shake");
+        monitor.classList.add("box-neon-red");
+
+        document.getElementById("atmSecurityBadge").textContent = "TRANSAKSI DITOLAK";
+        document.getElementById("atmSecurityBadge").className = "font-cyber text-[10px] font-bold px-2.5 py-0.5 rounded bg-rose-500/20 text-rose-300 border border-rose-400";
+
+        iconEl.textContent = "🚨❌";
+        titleEl.textContent = "TRANSAKSI TIDAK BERJAYA!";
+        titleEl.className = "font-cyber text-base sm:text-lg font-black text-rose-400 glow-red";
+        subEl.textContent = "CUBA LAGI! Sila pilih kad jawapan yang lain.";
+        subEl.className = "font-cyber text-xs sm:text-sm font-bold text-amber-200 mt-0.5";
+
+        // Eject card visually & re-enable cards so student can try again
+        const flyingCard = document.getElementById("flyingCardElement");
+        flyingCard.classList.remove("card-inserting");
+        flyingCard.classList.add("card-ejecting");
+
+        gameState.isProcessingCard = false;
+        setAnswerCardsEnabled(true);
+      }
+    }
+
+    window.goToNextQuestion = function () {
+      if (gameState.remainingIds.length === 0) {
+        showFinalResultsScreen();
+      } else {
+        openWheelScreen();
+      }
+    };
+
+    // =========================================================================
+    // 8. END GAME MODAL & FINAL RESULTS SCREEN
+    // =========================================================================
+    window.openEndGameModal = function () {
+      document.getElementById("endGameModal").classList.remove("hidden");
+    };
+
+    window.closeEndGameModal = function () {
+      document.getElementById("endGameModal").classList.add("hidden");
+    };
+
+    window.confirmEndGame = function () {
+      closeEndGameModal();
+      if (gameState.countdownTimer) {
+        clearInterval(gameState.countdownTimer);
+        gameState.countdownTimer = null;
+      }
+      showFinalResultsScreen();
+    };
+
+    function showFinalResultsScreen() {
+      audio.sfxGameComplete();
+      const total = QUESTION_BANK.length;
+      const answered = gameState.completedIds.length;
+      const unanswered = total - answered;
+      const scorePct = Math.round((answered / total) * 100);
+
+      document.getElementById("finalHeaderTitle").textContent =
+        answered === total ? "TAHNIAH! EKSPEDISI BERJAYA!" : "LAPORAN TAMAT PERMAINAN";
+      document.getElementById("finalAnsweredStat").textContent = `${answered} / ${total}`;
+      document.getElementById("finalUnansweredStat").textContent = `${unanswered} / ${total}`;
+      document.getElementById("finalScorePercent").textContent = `${scorePct}%`;
+      document.getElementById("finalRewardAmount").textContent = `RM ${gameState.rewardCash.toLocaleString()}`;
+
+      showScreen("RESULT");
+    }
+
+    window.resetAndRestartGame = function () {
+      if (gameState.countdownTimer) {
+        clearInterval(gameState.countdownTimer);
+        gameState.countdownTimer = null;
+      }
+      gameState.remainingIds = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+      gameState.completedIds = [];
+      gameState.currentQuestion = null;
+      gameState.rewardCash = 0;
+      gameState.isProcessingCard = false;
+      gameState.wheelState = "IDLE";
+      gameState.wheelVelocity = 0;
+
+      updateHudProgress();
+      audio.sfxStartGame();
+      openWheelScreen();
+    };
+
+    // Initialize HUD & Wheel on load
+    updateHudProgress();
+    drawWheel();
+  </script>
+</body>
+</html>
